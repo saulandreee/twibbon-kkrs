@@ -188,16 +188,12 @@ export default function ImageCrop() {
           id="twibbon-print"
         >
           {!!completedCrop && (
-            <>
-              <div className="w-[1000px]">
-                <canvas
-                  ref={previewCanvasRef}
-                  width={1000}
-                  height={1000}
-                  className="w-full object-cover"
-                />
-              </div>
-            </>
+            <div className="w-[75%]">
+              <canvas
+                ref={previewCanvasRef}
+                className="w-full object-cover"
+              />
+            </div>
           )}
           <img
             src="/logo-circle-pink@4x.png"
