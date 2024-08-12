@@ -13,6 +13,7 @@ import { useDebounceEffect } from "./useDebounceEffect";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import html2canvas from "html2canvas";
+import moment from "moment";
 
 function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   return centerCrop(
@@ -40,6 +41,7 @@ export default function ImageCrop() {
     height: 250,
   });
   const previewCanvasRef = useRef();
+  const copyPreviewCanvasRef = useRef();
   const imgRef = useRef(null);
   const hiddenAnchorRef = useRef(null);
   const blobUrlRef = useRef("");
@@ -113,30 +115,32 @@ export default function ImageCrop() {
     [completedCrop, scale, rotate]
   );
 
-  function handleToggleAspectClick() {
-    if (aspect) {
-      setAspect(undefined);
-    } else {
-      setAspect(16 / 9);
+  // function handleToggleAspectClick() {
+  //   if (aspect) {
+  //     setAspect(undefined);
+  //   } else {
+  //     setAspect(16 / 9);
 
-      if (imgRef.current) {
-        const { width, height } = imgRef.current;
-        const newCrop = centerAspectCrop(width, height, 16 / 9);
-        setCrop(newCrop);
-        // Updates the preview
-        setCompletedCrop(convertToPixelCrop(newCrop, width, height));
-      }
-    }
-  }
+  //     if (imgRef.current) {
+  //       const { width, height } = imgRef.current;
+  //       const newCrop = centerAspectCrop(width, height, 16 / 9);
+  //       setCrop(newCrop);
+  //       // Updates the preview
+  //       setCompletedCrop(convertToPixelCrop(newCrop, width, height));
+  //     }
+  //   }
+  // }
 
   const handleDownloadImage = async () => {
     const element = document.getElementById("twibbon-print"),
-      canvas = await html2canvas(element),
+      canvas = await html2canvas(element, {
+        allowTaint: true,
+      }),
       data = canvas.toDataURL("image/jpg"),
       link = document.createElement("a");
 
     link.href = data;
-    link.download = "downloaded-image.jpg";
+    link.download = `twibbon-kamyuu-${moment().format("HHmmss-DDMMYYYY")}.jpg`;
 
     document.body.appendChild(link);
     link.click();
@@ -180,25 +184,27 @@ export default function ImageCrop() {
       <div className="mb-6">
         <p className="mb-4 font-medium">3. Preview</p>
         <div
-          className="w-fit max-w-[400px] flex items-center justify-center relative"
+          className="w-full max-w-[1000px] aspect-square flex items-center justify-center relative"
           id="twibbon-print"
         >
           {!!completedCrop && (
             <>
-              <div className="w-full">
+              <div className="w-[1000px]">
                 <canvas
                   ref={previewCanvasRef}
-                  className="object-contain w-full"
+                  width={1000}
+                  height={1000}
+                  className="w-full object-cover"
                 />
               </div>
             </>
           )}
-          <Image
+          <img
             src="/logo-circle-pink@4x.png"
-            className="z-[1] absolute top-0 left-0 w-fit"
-            width={600}
-            height={600}
-            quality={100}
+            className="z-[1] absolute top-0 left-0 w-fit object-contain"
+            // width={1000}
+            // height={1000}
+            // quality={100}
             alt="frame"
           />
         </div>
