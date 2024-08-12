@@ -3,7 +3,7 @@ import { canvasPreview } from "./canvasPreview";
 
 let previewUrl = "";
 
-function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
+function toBlob(canvas) {
   return new Promise((resolve) => {
     canvas.toBlob(resolve);
   });
