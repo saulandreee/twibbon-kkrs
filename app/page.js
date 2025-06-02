@@ -13,7 +13,7 @@ export default function Home() {
           <li>Pilih foto yang kamu mau masukan ke twibbon</li>
           <li>Crop bagian yang ingin digunakan</li>
           {/* <li>Klik lanjutkan</li> */}
-          <li>Preview foto dengan frame twibbonnya dapat di nomor 3</li>
+          <li>Preview foto dengan frame twibbonnya dapat di nomor 4</li>
           <li>Foto dengan frame twibbonnya dapat di preview.</li>
           <ol className="list-disc pl-2.5 text-sm text-pink-500">
             <li>Jika butuh perubahan, kamu bisa menggerakan frame crop pada poin 2 dan akan langsung di update pada frame nomor 3.</li>
