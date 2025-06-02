@@ -8,8 +8,8 @@ const fontSans = Inter({
 });
 
 export const metadata = {
-  title: "Bikin Twibbon KKRS Jalur cepat",
-  description: "Created by multimedia team! xixi",
+  title: "Bikin Twibbon Jalur Cepat",
+  description: "Created by @saulandreee",
 };
 
 export default function RootLayout({ children }) {

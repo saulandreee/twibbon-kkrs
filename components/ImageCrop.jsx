@@ -30,7 +30,7 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function ImageCrop() {
+export default function ImageCrop({ slug }) {
   const [imgSrc, setImgSrc] = useState("");
   const [crop, setCrop] = useState({
     unit: "$",
@@ -145,7 +145,7 @@ export default function ImageCrop() {
 
   return (
     <>
-      <div>
+      <div className="mx-auto w-full">
         <div className="grid w-full max-w-sm items-center gap-1.5 mb-6">
           <Label htmlFor="picture">1. Pilih foto</Label>
           <Input
@@ -169,6 +169,7 @@ export default function ImageCrop() {
                 alt="Crop me"
                 src={imgSrc}
                 style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+                className="w-full"
                 onLoad={onImageLoad}
               />
             </ReactCrop>
@@ -176,36 +177,35 @@ export default function ImageCrop() {
 
           {/* <Button className="w-fit">Lanjutkan</Button> */}
         </div>
-      </div>
-      <div className="mb-6">
-        <p className="mb-4 font-medium">3. Preview</p>
-        <div
-          className="w-fit max-w-[400px] flex items-center justify-center relative"
-          id="twibbon-print"
-        >
-          {!!completedCrop && (
-            <>
-              <div className="w-full">
-                <canvas
-                  ref={previewCanvasRef}
-                  className="object-contain w-full"
-                />
-              </div>
-            </>
-          )}
-          <Image
-            src="/logo-circle-pink@4x.png"
-            className="z-[1] absolute top-0 left-0 w-fit"
-            width={600}
-            height={600}
-            quality={100}
-            alt="frame"
-          />
+        <div className="mb-6">
+          <p className="mb-4 font-medium">3. Preview</p>
+          <div
+            className="w-full flex items-center justify-center relative"
+            id="twibbon-print"
+          >
+            {!!completedCrop && (
+              <>
+                <div className="w-full">
+                  <canvas
+                    ref={previewCanvasRef}
+                    className="object-contain w-full"
+                  />
+                </div>
+              </>
+            )}
+            <Image
+              src={slug === "cpns-kemenham" ? "/twibbon-cpns.png" : slug === "kkrs" ? "/logo-circle-pink@4x.png" : ""}
+              className="z-[1] absolute top-0 left-0 w-full"
+              fill
+              quality={100}
+              alt="frame"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <p className="mb-4 font-medium">4. Download</p>
-        <Button onClick={handleDownloadImage}>Download</Button>
+        <div>
+          <p className="mb-4 font-medium">4. Download</p>
+          <Button onClick={handleDownloadImage}>Download</Button>
+        </div>
       </div>
     </>
   );

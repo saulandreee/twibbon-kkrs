@@ -1,9 +1,10 @@
 import ImageCrop from "@/components/ImageCrop";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({ params }) {
+  console.log(params.slug);
   return (
     <main className="px-4">
       <div className="mb-16 max-w-[600px] mx-auto border-slate-950 p-6 rounded-lg bg-slate-700">
@@ -28,21 +29,12 @@ export default function Home() {
         </p>
         {/* <h2 className="text-lg font-bold">Yukk dukung KKRS dengan pakai twibbon di semua medsos kamuu!</h2> */}
       </div>
-
-      <div className="grid gap-4 max-w-[600px] mx-auto">
-        <h2>Gas coba pilih mau bikin twibbon mana</h2>
-        <Button
-          size="lg"
-          asChild
-        >
-          <Link href={"cpns-kemenham"}>CPNS KemenHAM</Link>
-        </Button>
-        <Button
-          variant="ghost"
-          asChild
-        >
-          <Link href={"kkrs"}>KKRS 2024</Link>
-        </Button>
+      <div className="max-w-[1080px] mx-auto">
+        <Separator className="h-2" />
+        <ImageCrop
+          slug={params.slug}
+          className
+        />
       </div>
     </main>
   );
